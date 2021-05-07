@@ -14,7 +14,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-import model.Cliente;
+import controller.ClienteCtrl;
 import view.ClienteFrm;
 import static view.MovimentoEstoqueFrm.iptDataMovimento;
 import view.VeiculoFrm;
@@ -49,7 +49,7 @@ public class ClienteDao {
 
     }
 
-    public static boolean addCliente(Cliente cliente) throws SQLException {
+    public static boolean addCliente(ClienteCtrl cliente) throws SQLException {
         conexao = ConexoesMySql.conectar();
         pst = null;
         pst0 = null;
@@ -229,7 +229,7 @@ public class ClienteDao {
 
     }
 
-    public ResultSet buscarCliente(Cliente cliente) throws SQLException {
+    public ResultSet buscarCliente(ClienteCtrl cliente) throws SQLException {
         conexao = ConexoesMySql.conectar();
         pst = null;
         pst2 = null;
@@ -363,7 +363,7 @@ public class ClienteDao {
         return rs;
     }
 
-    public ResultSet buscarClienteCodigo(Cliente cliente) throws SQLException {
+    public ResultSet buscarClienteCodigo(ClienteCtrl cliente) throws SQLException {
         conexao = ConexoesMySql.conectar();
         pst = null;
         pst2 = null;
@@ -465,7 +465,7 @@ public class ClienteDao {
         return rs;
     }
 
-    public static boolean alterarCliente(Cliente cliente) throws SQLException {
+    public static boolean alterarCliente(ClienteCtrl cliente) throws SQLException {
         conexao = ConexoesMySql.conectar();
         pst = null;
         pst0 = null;

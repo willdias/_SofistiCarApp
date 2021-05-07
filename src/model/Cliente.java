@@ -1,5 +1,9 @@
 package model;
 
+import dao.ClienteDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -8,7 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import view.ClienteFrm;
 
-public class Cliente {
+public class Cliente implements controller.ClienteCtrl{
 
     private int codigo;
     private String nome;
@@ -17,7 +21,7 @@ public class Cliente {
     private String orgaoEmissorRg;
     private String dataNascimento;
     private int tipoPessoa;
-    public String status;
+    private String status;
     private String razaoSocial;
     private String nomeFantasia;
     private String cnpj;
@@ -69,201 +73,202 @@ public class Cliente {
     }
 
     //inicio dos métodos get
-    public int getCodigo() {
+    
+    private int getCodigo() {
         return this.codigo;
     }
 
-    public String getNome() {
+    private String getNome() {
         return this.nome;
     }
 
-    public String getCpf() {
+    private String getCpf() {
         return this.cpf;
     }
 
-    public String getRg() {
+    private String getRg() {
         return this.rg;
     }
 
-    public String getOrgaoEmissorRg() {
+    private String getOrgaoEmissorRg() {
         return this.orgaoEmissorRg;
     }
 
-    public String getDataNascimento() {
+    private String getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public int getTipoPessoa() {
+    private int getTipoPessoa() {
         return this.tipoPessoa;
     }
-
-    public String getStatus() {
+    
+    private String getStatus() {
         return this.status;
     }
-
-    public String getRazaoSocial() {
+    
+    private String getRazaoSocial() {
         return this.razaoSocial;
     }
 
-    public String getNomeFantasia() {
+    private String getNomeFantasia() {
         return this.nomeFantasia;
     }
-
-    public String getCnpj() {
+    
+    private String getCnpj() {
         return this.cnpj;
     }
 
-    public String getIe() {
+    private String getIe() {
         return this.ie;
     }
 
-    public String getFoneFixo() {
+    private String getFoneFixo() {
         return this.foneFixo;
     }
-
-    public String getFoneCelular() {
+    
+    private String getFoneCelular() {
         return this.foneCelular;
     }
-
-    public String getEmail() {
+    
+    private String getEmail() {
         return this.email;
     }
 
-    public String getCep() {
+    private String getCep() {
         return this.cep;
     }
 
-    public String getLogradouro() {
+    private String getLogradouro() {
         return this.logradouro;
     }
 
-    public String getComplemento() {
+    private String getComplemento() {
         return this.complemento;
     }
-
-    public int getNumero() {
+    
+    private int getNumero() {
         return this.numero;
     }
-
-    public String getBairro() {
+    
+    private String getBairro() {
         return this.bairro;
     }
-
-    public String getCidade() {
+    
+    private String getCidade() {
         return this.cidade;
     }
-
-    public String getEstado() {
+    
+    private String getEstado() {
         return this.estado;
     }
-
-    public String getObservacoes() {
+    
+    private String getObservacoes() {
         return this.observacoes;
     }
-
-    public String getTexto() {
+    
+    private String getTexto() {
         return this.texto;
     }
-
     //fim dos métodos get
+
     //inicio dos métodos set
-    public void setCodigo(int codigo) {
+    private void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
-    public void setNome(String nome) {
+    private void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setCpf(String cpf) {
+    private void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public void setRg(String rg) {
+    private void setRg(String rg) {
         this.rg = rg;
     }
 
-    public void setOrgaoEmissorRg(String orgaoEmissorRg) {
+    private void setOrgaoEmissorRg(String orgaoEmissorRg) {
         this.orgaoEmissorRg = orgaoEmissorRg;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    private void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-
-    public void setTipoPessoa(int tipoPessoa) {
+    
+    private void setTipoPessoa(int tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
-
-    public void setStatus(String status) {
+    
+    private void setStatus(String status) {
         this.status = status;
     }
-
-    public void setRazaoSocial(String razaoSocial) {
+    
+    private void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
     }
-
-    public void setNomeFantasia(String nomeFantasia) {
+    
+    private void setNomeFantasia(String nomeFantasia) {
         this.nomeFantasia = nomeFantasia;
     }
-
-    public void setCnpj(String cnpj) {
+    
+    private void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-
-    public void setIe(String ie) {
+    
+    private void setIe(String ie) {
         this.ie = ie;
     }
-
-    public void setFoneFixo(String foneFixo) {
+    
+    private void setFoneFixo(String foneFixo) {
         this.foneFixo = foneFixo;
     }
-
-    public void setFoneCelular(String foneCelular) {
+    
+    private void setFoneCelular(String foneCelular) {
         this.foneCelular = foneCelular;
     }
-
-    public void setEmail(String email) {
+    
+    private void setEmail(String email) {
         this.email = email;
     }
-
-    public void setCep(String cep) {
+    
+    private void setCep(String cep) {
         this.cep = cep;
     }
-
-    public void setLogradouro(String logradouro) {
+    
+    private void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
     }
-
-    public void setComplemento(String complemento) {
+    
+    private void setComplemento(String complemento) {
         this.complemento = complemento;
     }
 
-    public void setNumero(int numero) {
+    private void setNumero(int numero) {
         this.numero = numero;
     }
 
-    public void setBairro(String bairro) {
+    private void setBairro(String bairro) {
         this.bairro = bairro;
     }
 
-    public void setCidade(String cidade) {
+    private void setCidade(String cidade) {
         this.cidade = cidade;
     }
 
-    public void setEstado(String estado) {
+    private void setEstado(String estado) {
         this.estado = estado;
     }
 
-    public void setObservacoes(String observacoes) {
+    private void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
 
-    public void setTexto(String texto) {
+    private void setTexto(String texto) {
         this.texto = texto;
     }
 
-    public void setFormato(String formato) {
+    private void setFormato(String formato) {
         this.formato = formato;
     }
 
@@ -410,6 +415,77 @@ public class Cliente {
         cliente.setTipoPessoa(getTipoPessoa(ClienteFrm.rdPessoaFisica, ClienteFrm.rdPessoaJuridica));
 
         return cliente;
+    }
+    
+   /* public abstract Cliente incluirClienteCtrl() throws SQLException {
+        Cliente cliente = new Cliente();
+        if (ClienteDao.addCliente(cliente.capturarCliente(cliente))) {
+            //limparCampos();
+            
+        }
+        return cliente;
+    }
+
+    public static Cliente buscarClienteCtrl(Cliente cliente) throws SQLException {
+
+        ClienteDao cli = new ClienteDao();
+        cli.buscarCliente(cliente);
+        return cliente;
+    }
+
+    public static Cliente buscarClienteCodigoCtrl(Cliente cliente) throws SQLException {
+
+        ClienteDao cli = new ClienteDao();
+        cli.buscarClienteCodigo(cliente);
+        return cliente;
+    }
+    
+    public static Cliente alterarClienteCtrl() throws SQLException {
+        Cliente cliente = new Cliente();
+
+        if (ClienteDao.alterarCliente(cliente.capturarCliente(cliente))) {
+            limparCampos();
+        }
+        return cliente;
+    }
+    public static Cliente buscarClienteVeiCtrl() throws SQLException {
+        Cliente cliente = new Cliente();
+        ClienteDao clienteDao = new ClienteDao();
+        clienteDao.buscarClienteVeiDao();
+        return cliente;
+    }*/
+
+    /**
+     *
+     */
+    @Override
+    public Cliente incluirClienteCtrl() {
+        Cliente cliente = new Cliente();
+        try {
+            if (ClienteDao.addCliente(cliente.capturarCliente(cliente))) {
+                //limparCampos();
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cliente;
+    }
+
+    @Override
+    public void buscarClienteCtrl() {
+    }
+
+    @Override
+    public void buscarClienteCodigoCtrl() {
+    }
+
+    @Override
+    public void alterarClienteCtrl() {
+    }
+
+    @Override
+    public void buscarClienteVeiCtrl() {
     }
 
 }
