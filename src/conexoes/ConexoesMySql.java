@@ -6,9 +6,7 @@ import java.sql.SQLException; //Classe responsável por tratar exceções
 
 public class ConexoesMySql {
 
-    private static Connection conexao = null;
-
-        private static Connection conectar() {
+    private static Connection conectar() {
         // a linha abaixo chama o driver 
         String driver = "com.mysql.cj.jdbc.Driver";
         
@@ -17,7 +15,7 @@ public class ConexoesMySql {
         String password = System.getenv("DB_PASSWORD");
 
         if (url == null || url.trim().isEmpty()) {
-            url = "jdbc:mysql://localhost:3306/soberano";
+            url = "jdbc:mysql://localhost:3306/DB_NAME?useSSL=false&serverTimezone=UTC";
         }
         if (user == null || user.trim().isEmpty()
                 || password == null || password.isEmpty()) {
@@ -28,14 +26,12 @@ public class ConexoesMySql {
         // Estabelecendo a conexão com o banco
         try {
             Class.forName(driver);
-            conexao = DriverManager.getConnection(url, user, password);
-            return conexao;
+            return DriverManager.getConnection(url, user, password);
 
         } catch (ClassNotFoundException | SQLException e) {
 
             // a linha abaixo esclarece o erro de conexão
-            System.out.println("Erro ao conectar ao Banco de Dados: " + e);
-            
+
             return null;
         }
 
@@ -46,13 +42,8 @@ public class ConexoesMySql {
     }
     
     public static boolean bancoAtivo() {
-    	Boolean status;
-    	if(conectar() == null) {
-    		status = false;
-    	}
-    	else {
-    		status = true;
-    	}
+    	boolean status;
+        status = conectar() != null;
     	return status;
     }
 
