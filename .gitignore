@@ -1,0 +1,9 @@
+/dist/
+/build/
+/nbproject/private/
+/.idea/
+/.vscode/
+/*.iml
+/.classpath
+/.project
+/iReport-5.5.0.nbm
