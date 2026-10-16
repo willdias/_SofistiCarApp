@@ -1,14 +1,14 @@
 package dao;
 
 import conexoes.ConexoesMySql;
-import java.awt.HeadlessException;
+import model.Movimento_Estoque;
+
+import javax.swing.*;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-import model.Movimento_Estoque;
 
 public class MovimentoEstoqueDao {
 
@@ -22,8 +22,8 @@ public class MovimentoEstoqueDao {
         rs = null;
         String dataMovimento;
 
-        String sql = "INSERT INTO movimentacao_estoque ( data_movimentacao_estoque,"
-                + " qtd_produto, id_produto_movimentacao_estoque, id_tipo_movimentacao) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO MOVIMENTACAO_ESTOQUE ( data_movimentacao_estoque,"
+                + " id_produto_movimentacao_estoque, id_tipo_movimentacao) VALUES (?,?,?)";
 
         if (conexao != null) {
             try {
@@ -77,8 +77,8 @@ public class MovimentoEstoqueDao {
         rs = null;
         String dataMovimento;
 
-        String sql = "UPDATE movimento_estoque data_movimentacao_estoque = ?,"
-                + " qtd_produto = ?, id_produto_movimentacao_estoque = ?, id_tipo_movimentacao = ?)";
+        String sql = "UPDATE MOVIMENTACAO_ESTOQUE SET data_movimentacao_estoque = ?,"
+                + " id_produto_movimentacao_estoque = ?, id_tipo_movimentacao = ? WHERE id_movimentacao_estoque = ?";
 
         if (conexao != null) {
             try {

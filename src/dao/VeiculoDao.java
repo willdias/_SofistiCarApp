@@ -25,10 +25,10 @@ public class VeiculoDao {
 
    public ResultSet buscarVeiculoDao(Veiculo veiculo) throws SQLException {
 	   conexao = ConexoesMySql.base();
-        String sql = "SELECT * FROM veiculo WHERE placa_veiculo = ?"
-                + "OR codigo_veiculo = ?";
+        String sql = "SELECT * FROM VEICULO WHERE placa_veiculo = ?"
+                + "OR ID_VEICULO = ?";
         
-        String sqlMaxCod = "SELECT MAX(codigo_veiculo) FROM veiculo";
+        String sqlMaxCod = "SELECT MAX(ID_VEICULO) FROM VEICULO";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -40,15 +40,15 @@ public class VeiculoDao {
             rs1 = pst1.executeQuery();
 
             if (rs.next()) {
-                veiculo.setCodigo_veiculo(rs.getInt(1));
-                veiculo.setDescricao_veiculo(rs.getString(2));
-                veiculo.setFabricante_veiculo(rs.getString(3));
-                veiculo.setPlaca_veiculo(rs.getString(4));
-                veiculo.setAno_veiculo(rs.getString(5));
-                veiculo.setModelo_veiculo(rs.getString(6));
-                veiculo.setCor_veiculo(rs.getString(7));
-                veiculo.setChassi_veiculo(rs.getString(8));
-                veiculo.setVeiculo_id_cliente(rs.getInt(10));
+                veiculo.setCodigo_veiculo(rs.getInt("id_veiculo"));
+                veiculo.setDescricao_veiculo(rs.getString("descricao_veiculo"));
+                veiculo.setPlaca_veiculo(rs.getString("placa_veiculo"));
+                veiculo.setAno_veiculo(rs.getString("ano_veiculo"));
+                veiculo.setModelo_veiculo(rs.getString("modelo_veiculo"));
+                veiculo.setCor_veiculo(rs.getString("cor_veiculo"));
+                veiculo.setChassi_veiculo(rs.getString("chassi_veiculo"));
+                veiculo.setVeiculo_id_cliente(rs.getInt("veiculo_id_cliente"));
+                veiculo.setId_status_veiculo(rs.getInt("id_status_veiculo"));
             }else {
                 veiculo.getPlaca_veiculo();
                 addVeiculoDao(veiculo);
@@ -63,7 +63,7 @@ public class VeiculoDao {
 
     public ResultSet buscarTodosVeiculos() throws SQLException {
     	conexao = ConexoesMySql.base();
-        String sql = "SELECT * FROM veiculo";
+        String sql = "SELECT * FROM VEICULO";
         try {
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -82,21 +82,20 @@ public class VeiculoDao {
         rs = null;
         rs1 = null;
 
-        String sql = "INSERT INTO veiculo (descricao_veiculo, fabricante_veiculo, placa_veiculo,"
+        String sql = "INSERT INTO VEICULO (descricao_veiculo, placa_veiculo,"
                 + " ano_veiculo, modelo_veiculo, cor_veiculo, chassi_veiculo)"
-                + " VALUES (?,?,?,?,?,?,?)";
+                + " VALUES (?,?,?,?,?,?)";
 
         if (conexao != null) {
             try {
 
                 pst1 = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 pst1.setString(1, veiculo.getDescricao_veiculo());
-                pst1.setString(2, veiculo.getFabricante_veiculo());
-                pst1.setString(3, veiculo.getPlaca_veiculo());
-                pst1.setString(4, veiculo.getAno_veiculo());
-                pst1.setString(5, veiculo.getModelo_veiculo());
-                pst1.setString(6, veiculo.getCor_veiculo());
-                pst1.setString(7, veiculo.getChassi_veiculo());
+                pst1.setString(2, veiculo.getPlaca_veiculo());
+                pst1.setString(3, veiculo.getAno_veiculo());
+                pst1.setString(4, veiculo.getModelo_veiculo());
+                pst1.setString(5, veiculo.getCor_veiculo());
+                pst1.setString(6, veiculo.getChassi_veiculo());
                 pst1.executeUpdate();
                 ResultSet keys = pst1.getGeneratedKeys();
                 keys.next();
@@ -134,9 +133,9 @@ public class VeiculoDao {
         pst = null;
         rs = null;
 
-        String sqlPlaca = "SELECT * FROM veiculo where placa_veiculo = ? AND descricao_veiculo IS NOT NULL";
+        String sqlPlaca = "SELECT * FROM VEICULO where placa_veiculo = ? AND descricao_veiculo IS NOT NULL";
 
-        String sql = "UPDATE veiculo SET descricao_veiculo = ?, fabricante_veiculo = ?,"
+        String sql = "UPDATE VEICULO SET descricao_veiculo = ?,"
                 + " ano_veiculo = ?, modelo_veiculo = ?, cor_veiculo = ?,"
                 + " chassi_veiculo = ?, veiculo_id_cliente = ?, id_status_veiculo = ? WHERE placa_veiculo = ?";
 
@@ -155,12 +154,11 @@ public class VeiculoDao {
                     pst1 = conexao.prepareStatement(sql);
 
                     pst1.setString(1, veiculo.getDescricao_veiculo());
-                    pst1.setString(2, veiculo.getFabricante_veiculo());
-                    pst1.setString(3, veiculo.getAno_veiculo());
-                    pst1.setString(4, veiculo.getModelo_veiculo());
-                    pst1.setString(5, veiculo.getCor_veiculo());
-                    pst1.setString(6, veiculo.getChassi_veiculo());
-                    pst1.setInt(7, veiculo.getVeiculo_id_cliente());
+                    pst1.setString(2, veiculo.getAno_veiculo());
+                    pst1.setString(3, veiculo.getModelo_veiculo());
+                    pst1.setString(4, veiculo.getCor_veiculo());
+                    pst1.setString(5, veiculo.getChassi_veiculo());
+                    pst1.setInt(6, veiculo.getVeiculo_id_cliente());
                     pst1.setInt(8, veiculo.getId_status_veiculo());
                     pst1.setString(9, veiculo.getPlaca_veiculo());
                     pst1.executeUpdate();

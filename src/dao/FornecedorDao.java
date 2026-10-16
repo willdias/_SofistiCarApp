@@ -54,16 +54,16 @@ public class FornecedorDao {
         pst5 = null;
         rs = null;
 
-        String sqlPessoa = "INSERT INTO pessoa (nome_pessoa, cpf_pessoa, rg_pessoa, orgaoemissor_pessoa, dtnasc_pessoa,"
+        String sqlPessoa = "INSERT INTO PESSOA (nome_pessoa, cpf_pessoa, rg_pessoa, orgaoemissor_pessoa, dtnasc_pessoa,"
                 + " tipo_pessoa, razaosocial_pessoa, nomefantasia_pessoa, cnpj_pessoa, ie_pessoa, observacoes_pessoa) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        String sqlfornecedor = "INSERT INTO fornecedor (id_pessoa, id_status_fornecedor) VALUES (?,?)";
-        String sqltelefone = "INSERT INTO fornecedor_contato (id_fornecedor, descricao_fornecedor_contato, id_contato_tipo) VALUES (?,?,1)";
-        String sqlcelular = "INSERT INTO fornecedor_contato (id_fornecedor, descricao_fornecedor_contato, id_contato_tipo) VALUES (?,?,2)";
-        String sqlemail = "INSERT INTO fornecedor_contato (id_fornecedor, descricao_fornecedor_contato, id_contato_tipo) VALUES (?,?,3)";
-        String sqlendereco = "INSERT INTO fornecedor_endereco (cep_endereco_fornecedor, logradouro_endereco_fornecedor, complemento_endereco_fornecedor,"
+        String sqlfornecedor = "INSERT INTO FORNECEDOR (id_pessoa) VALUES (?)";
+        String sqltelefone = "INSERT INTO CONTATO_FORNECEDOR (id_fornecedor, descricao_fornecedor_contato, id_contato_tipo) VALUES (?,?,1)";
+        String sqlcelular = "INSERT INTO CONTATO_FORNECEDOR (id_fornecedor, descricao_fornecedor_contato, id_contato_tipo) VALUES (?,?,2)";
+        String sqlemail = "INSERT INTO CONTATO_FORNECEDOR (id_fornecedor, descricao_fornecedor_contato, id_contato_tipo) VALUES (?,?,3)";
+        String sqlendereco = "INSERT INTO ENDERECO_FORNECEDOR (cep_endereco_fornecedor, logradouro_endereco_fornecedor, complemento_endereco_fornecedor,"
                 + " numero_endereco_fornecedor, bairro_endereco_fornecedor,"
                 + " cidade_endereco_fornecedor, estado_endereco_fornecedor, id_fornecedor) VALUES (?,?,?,?,?,?,?,?)";
-        String sqlCpf = "SELECT * FROM pessoa WHERE cpf_pessoa = ?";
+        String sqlCpf = "SELECT * FROM PESSOA WHERE cpf_pessoa = ?";
 
         if (conexao != null) {
             try {
@@ -214,50 +214,50 @@ public class FornecedorDao {
         String cidade = null;
         String estado = null;
 
-        String sqlCpf = "SELECT * FROM pessoa p"
-                + "	INNER JOIN fornecedor c"
-                + "    INNER JOIN fornecedor_contato t"
-                + "    ON c.id_pessoa = p.codigo_pessoa"
-                + "    AND t.id_fornecedor = c.codigo_fornecedor"
+        String sqlCpf = "SELECT * FROM PESSOA p"
+                + "	INNER JOIN FORNECEDOR c"
+                + "    INNER JOIN CONTATO_FORNECEDOR t"
+                + "    ON c.id_pessoa = p.ID_PESSOA"
+                + "    AND t.id_fornecedor = c.ID_FORNECEDOR"
                 + "    WHERE p.cpf_pessoa = ?"
                 + "    OR p.nome_pessoa LIKE ?"
                 + "    OR p.cnpj_pessoa = ?"
                 + "    OR p.razaosocial_pessoa LIKE ?";
-        String sqlContato1 = "SELECT descricao_fornecedor_contato FROM fornecedor_contato t"
-                + "    INNER JOIN fornecedor c"
-                + "    INNER JOIN pessoa p"
-                + "    ON t.id_fornecedor = c.codigo_fornecedor"
-                + "    AND c.id_pessoa = p.codigo_pessoa"
+        String sqlContato1 = "SELECT descricao_fornecedor_contato FROM CONTATO_FORNECEDOR t"
+                + "    INNER JOIN FORNECEDOR c"
+                + "    INNER JOIN PESSOA p"
+                + "    ON t.id_fornecedor = c.ID_FORNECEDOR"
+                + "    AND c.id_pessoa = p.ID_PESSOA"
                 + "    AND t.id_contato_tipo = 1"
                 + "    WHERE p.cpf_pessoa = ? "
                 + "    OR p.nome_pessoa LIKE ? "
                 + "    OR p.cnpj_pessoa = ? "
                 + "    OR p.razaosocial_pessoa LIKE ? ";
-        String sqlContato2 = "SELECT descricao_fornecedor_contato FROM fornecedor_contato t"
-                + "    INNER JOIN fornecedor c"
-                + "    INNER JOIN pessoa p"
-                + "    ON t.id_fornecedor = c.codigo_fornecedor"
-                + "    AND c.id_pessoa = p.codigo_pessoa"
+        String sqlContato2 = "SELECT descricao_fornecedor_contato FROM CONTATO_FORNECEDOR t"
+                + "    INNER JOIN FORNECEDOR c"
+                + "    INNER JOIN PESSOA p"
+                + "    ON t.id_fornecedor = c.ID_FORNECEDOR"
+                + "    AND c.id_pessoa = p.ID_PESSOA"
                 + "    AND t.id_contato_tipo = 2"
                 + "    WHERE p.cpf_pessoa = ? "
                 + "    OR p.nome_pessoa LIKE ? "
                 + "    OR p.cnpj_pessoa = ? "
                 + "    OR p.razaosocial_pessoa LIKE ? ";
-        String sqlContato3 = "SELECT descricao_fornecedor_contato FROM fornecedor_contato t"
-                + "    INNER JOIN fornecedor c"
-                + "    INNER JOIN pessoa p"
-                + "    ON t.id_fornecedor = c.codigo_fornecedor"
-                + "    AND c.id_pessoa = p.codigo_pessoa"
+        String sqlContato3 = "SELECT descricao_fornecedor_contato FROM CONTATO_FORNECEDOR t"
+                + "    INNER JOIN FORNECEDOR c"
+                + "    INNER JOIN PESSOA p"
+                + "    ON t.id_fornecedor = c.ID_FORNECEDOR"
+                + "    AND c.id_pessoa = p.ID_PESSOA"
                 + "    AND t.id_contato_tipo = 3"
                 + "    WHERE p.cpf_pessoa = ? "
                 + "    OR p.nome_pessoa LIKE ? "
                 + "    OR p.cnpj_pessoa = ? "
                 + "    OR p.razaosocial_pessoa LIKE ? ";
-        String sqlEndereco = "SELECT * FROM fornecedor_endereco e"
-                + " INNER JOIN fornecedor c"
-                + " INNER JOIN pessoa p"
-                + " ON c.id_pessoa = p.codigo_pessoa"
-                + " AND e.id_fornecedor = c.codigo_fornecedor"
+        String sqlEndereco = "SELECT * FROM ENDERECO_FORNECEDOR e"
+                + " INNER JOIN FORNECEDOR c"
+                + " INNER JOIN PESSOA p"
+                + " ON c.id_pessoa = p.ID_PESSOA"
+                + " AND e.id_fornecedor = c.ID_FORNECEDOR"
                 + " WHERE p.cpf_pessoa = ? "
                 + " OR p.nome_pessoa LIKE ? "
                 + " OR p.cnpj_pessoa = ? "
@@ -365,14 +365,14 @@ public class FornecedorDao {
         DefaultComboBoxModel fornecedor = null;
         List<String> strList = new ArrayList<>();
 
-        String sql1 = "SELECT f.codigo_fornecedor, \n"
+        String sql1 = "SELECT f.ID_FORNECEDOR, \n"
                 + "CASE WHEN p.nome_pessoa IS NOT NULL THEN \n"
                 + "p.nome_pessoa\n"
                 + "else p.razaosocial_pessoa END AS NOME\n"
-                + "FROM pessoa p\n"
-                + "INNER JOIN fornecedor f ON f.id_pessoa = p.codigo_pessoa\n"
-                + "WHERE f.codigo_fornecedor IS NOT null\n"
-                + "ORDER BY f.codigo_fornecedor;";
+                + "FROM PESSOA p\n"
+                + "INNER JOIN FORNECEDOR f ON f.id_pessoa = p.ID_PESSOA\n"
+                + "WHERE f.ID_FORNECEDOR IS NOT null\n"
+                + "ORDER BY f.ID_FORNECEDOR;";
         
         try {
 
@@ -400,13 +400,13 @@ public class FornecedorDao {
         pst5 = null;
         rs = null;
 
-        String sql = "UPDATE pessoa SET(nome, cpf, rg, orgaoEmissorRg, dataNascimento,"
-                + " tipoPessoa, razaoSocial, nomeFantasia, cnpj, inscricaoEstadual) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        String sqltelefone = "UPDATE fornecedor_contato SET(descricao_fornecedor_contato) VALUES (?) WHERE id_fornecedor = AND id_contato_tipo = ";
-        String sqlcelular = "UPDATE fornecedor_contato SET(descricao_fornecedor_contato) VALUES (?) WHERE id_fornecedor = AND id_contato_tipo = ";
-        String sqlemail = "UPDATE fornecedor_contato SET(descricao_fornecedor_contato) VALUES (?)WHERE id_fornecedor = AND id_contato_tipo = ";
-        String sqlendereco = "UPDATE fornecedor_endereco (cep_endereco_fornecedor, logradouro_endereco_fornecedor, complemento_endereco_fornecedor,"
-                + " numero_endereco_fornecedor, bairro_endereco_fornecedor, cidade_endereco_fornecedor, estado_endereco_fornecedor) VALUES (?,?,?,?,?,?,?,?) WHERE id_fornecedor = AND id_contato_tipo = ";
+        String sql = "UPDATE PESSOA SET NOME_PESSOA = ?, CPF_PESSOA = ?, RG_PESSOA = ?, ORGAOEMISSOR_PESSOA = ?, DTNASC_PESSOA = ?,"
+                + " TIPO_PESSOA = ?, RAZAOSOCIAL_PESSOA = ?, NOMEFANTASIA_PESSOA = ?, CNPJ_PESSOA = ?, IE_PESSOA = ? WHERE ID_PESSOA = ?";
+        String sqltelefone = "UPDATE CONTATO_FORNECEDOR SET descricao_fornecedor_contato = ? WHERE id_fornecedor = ? AND id_contato_tipo = ?";
+        String sqlcelular = "UPDATE CONTATO_FORNECEDOR SET descricao_fornecedor_contato = ? WHERE id_fornecedor = ? AND id_contato_tipo = ?";
+        String sqlemail = "UPDATE CONTATO_FORNECEDOR SET descricao_fornecedor_contato = ? WHERE id_fornecedor = ? AND id_contato_tipo = ?";
+        String sqlendereco = "UPDATE ENDERECO_FORNECEDOR SET cep_endereco_fornecedor = ?, logradouro_endereco_fornecedor = ?, complemento_endereco_fornecedor = ?,"
+                + " numero_endereco_fornecedor = ?, bairro_endereco_fornecedor = ?, cidade_endereco_fornecedor = ?, estado_endereco_fornecedor = ? WHERE id_fornecedor = ?";
 
         if (conexao != null) {
             try {

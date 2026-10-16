@@ -41,8 +41,8 @@ public class FuncionarioDao {
 
     public static boolean addFuncionarioDao(Pessoa pessoa) throws SQLException {
         conexao = ConexoesMySql.base();
-        String sqlCpf = "SELECT * FROM pessoa WHERE cpf_pessoa = ?";
-        String sqlPessoa = "INSERT INTO pessoa "
+        String sqlCpf = "SELECT * FROM PESSOA WHERE cpf_pessoa = ?";
+        String sqlPessoa = "INSERT INTO PESSOA "
                 + "(nome_pessoa,"
                 + " cpf_pessoa,"
                 + " rg_pessoa, "
@@ -115,7 +115,7 @@ public class FuncionarioDao {
                 + " tipo_pessoa,"
                 + " observacoes_pessoa)"
                 + " VALUES (?,?,?,?,?,?,?)";*/
-        String sqlFuncionario = "INSERT INTO funcionario "
+        String sqlFuncionario = "INSERT INTO FUNCIONARIO "
                 + "(cargo_funcionario,"
                 + "departamento_funcionario,"
                 + "salario_funcionario,"
@@ -134,10 +134,10 @@ public class FuncionarioDao {
                 + "qtde_filhos_funcionario,"
                 + "funcionario_id_pessoa)"
                 + " Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        String sqltelefone = "INSERT INTO funcionario_contato (id_funcionario, descricao_funcionario_contato, id_contato_tipo) VALUES (?,?,1)";
-        String sqlcelular = "INSERT INTO funcionario_contato (id_funcionario, descricao_funcionario_contato, id_contato_tipo) VALUES (?,?,2)";
-        String sqlemail = "INSERT INTO funcionario_contato (id_funcionario, descricao_funcionario_contato, id_contato_tipo) VALUES (?,?,3)";
-        String sqlendereco = "INSERT INTO funcionario_endereco (cep_endereco_funcionario, logradouro_endereco_funcionario, complemento_endereco_funcionario,"
+        String sqltelefone = "INSERT INTO FUNCIONARIO_CONTATO (id_funcionario, descricao_funcionario_contato, ID_CONTATO_FUNCIONARIO_TIPO) VALUES (?,?,1)";
+        String sqlcelular = "INSERT INTO FUNCIONARIO_CONTATO (id_funcionario, descricao_funcionario_contato, ID_CONTATO_FUNCIONARIO_TIPO) VALUES (?,?,2)";
+        String sqlemail = "INSERT INTO FUNCIONARIO_CONTATO (id_funcionario, descricao_funcionario_contato, ID_CONTATO_FUNCIONARIO_TIPO) VALUES (?,?,3)";
+        String sqlendereco = "INSERT INTO ENDERECO_FUNCIONARIO (cep_endereco_funcionario, logradouro_endereco_funcionario, complemento_endereco_funcionario,"
                 + " numero_endereco_funcionario, bairro_endereco_funcionario,"
                 + " cidade_endereco_funcionario, estado_endereco_funcionario, id_funcionario) VALUES (?,?,?,?,?,?,?,?)";
 
@@ -289,47 +289,47 @@ public class FuncionarioDao {
         conexao = ConexoesMySql.base();
 
         //Query de atualização de pessoa
-        String sqlPessoa = "UPDATE pessoa SET nome_pessoa = ?, rg_pessoa = ?, orgaoemissor_pessoa = ?,"
-                + " dtnasc_pessoa = ?, observacoes_pessoa"
-                + " WHERE codigo_pessoa = ?";
+        String sqlPessoa = "UPDATE PESSOA SET nome_pessoa = ?, rg_pessoa = ?, orgaoemissor_pessoa = ?,"
+                + " dtnasc_pessoa = ?, observacoes_pessoa = ?"
+                + " WHERE ID_PESSOA = ?";
 
         //Query de atualização de funcionário
-        String sqlFuncionario = "UPDATE funcionario SET"
-                + "cargo_funcionario = ?,"
-                + "departamento_funcionario = ?,"
-                + "salario_funcionario = ?,"
-                + "ctps_funcionario = ?,"
-                + "seriectps_funcionario = ?,"
-                + "pispasep_funcionario = ?,"
-                + "uf_ctps_funcionario = ?,"
-                + "datacontratacao_funcionario = ?,"
-                + "datasaida_funcionario = ?,"
-                + "titulo_eleitor_funcionario = ?,"
-                + "zona_funcionario = ?,"
-                + "secao_funcionario = ?,"
-                + "nome_pai_funcionario = ?,"
-                + "nome_mae_funcionario = ?,"
-                + "estado_civil_funcionario = ?,"
-                + "qtde_filhos_funcionario = ?,"
-                + "funcionario_id_pessoa = ?,"
-                + "id_status_funcionario = ?"
-                + "WHERE codigo_funcionario = ?";
+        String sqlFuncionario = "UPDATE FUNCIONARIO SET"
+                + " cargo_funcionario = ?,"
+                + " departamento_funcionario = ?,"
+                + " salario_funcionario = ?,"
+                + " ctps_funcionario = ?,"
+                + " seriectps_funcionario = ?,"
+                + " pispasep_funcionario = ?,"
+                + " uf_ctps_funcionario = ?,"
+                + " datacontratacao_funcionario = ?,"
+                + " datasaida_funcionario = ?,"
+                + " titulo_eleitor_funcionario = ?,"
+                + " zona_funcionario = ?,"
+                + " secao_funcionario = ?,"
+                + " nome_pai_funcionario = ?,"
+                + " nome_mae_funcionario = ?,"
+                + " estado_civil_funcionario = ?,"
+                + " qtde_filhos_funcionario = ?,"
+                + " funcionario_id_pessoa = ?"
+                //+ " id_status_funcionario = ?"
+                + " WHERE ID_FUNCIONARIO = ?";
 
         //Query de atualização de telefone fixo do funcionário
-        String sqltelefone = "UPDATE funcionario_contato t SET descricao_funcionario_contato = ? "
-                + "WHERE t.id_funcionario = ? AND id_contato_tipo = 1";
+        String sqltelefone = "UPDATE FUNCIONARIO_CONTATO t SET descricao_funcionario_contato = ? "
+                + "WHERE t.id_funcionario = ? AND ID_CONTATO_FUNCIONARIO_TIPO = 1";
 
         //Query de atualização de telefone celular do funcionário
-        String sqlcelular = "UPDATE funcionario_contato t SET descricao_funcionario_contato = ? "
-                + "WHERE t.id_funcionario = ? AND id_contato_tipo = 2";
+        String sqlcelular = "UPDATE FUNCIONARIO_CONTATO t SET descricao_funcionario_contato = ? "
+                + "WHERE t.id_funcionario = ? AND ID_CONTATO_FUNCIONARIO_TIPO = 2";
 
         //Query de atualização do email do funcionário
-        String sqlemail = "UPDATE funcionario_contato t SET descricao_funcionario_contato = ? "
-                + "WHERE t.id_funcionario = ? AND id_contato_tipo = 3";
+        String sqlemail = "UPDATE FUNCIONARIO_CONTATO t SET descricao_funcionario_contato = ? "
+                + "WHERE t.id_funcionario = ? AND ID_CONTATO_FUNCIONARIO_TIPO = 3";
 
         //Query de atualização do endereço do funcionário
-        String sqlendereco = "UPDATE funcionario_contato SET "
-                + " cep_endereco_funcionario = ?,"
+        String sqlendereco = "UPDATE ENDERECO_FUNCIONARIO SET "
+                + " CEP_ENDERECO_FUNCIONARIO = ?,"
                 + " logradouro_endereco_funcionario = ?,"
                 + " complemento_endereco_funcionario = ?,"
                 + " numero_endereco_funcionario = ?,"
@@ -458,46 +458,47 @@ public class FuncionarioDao {
         pst3 = null;
         pst4 = null;
         String dtNascCli;
-        String sqlCpf = "SELECT * FROM pessoa p"
-                + " INNER JOIN funcionario f ON f.funcionario_id_pessoa = p.codigo_pessoa"
-                + " INNER JOIN funcionario_contato t ON t.id_funcionario = f.codigo_funcionario"
+        String sqlCpf = "SELECT * FROM PESSOA p"
+                + " INNER JOIN FUNCIONARIO f ON f.funcionario_id_pessoa = p.id_pessoa"
+                + " INNER JOIN FUNCIONARIO_CONTATO t ON t.id_funcionario = f.id_funcionario"
                 + " WHERE p.cpf_pessoa = ?"
-                + " OR f.codigo_funcionario = ?"
+                + " OR f.id_funcionario = ?"
                 + " OR p.nome_pessoa LIKE ?";
-        String sqlContato1 = "SELECT descricao_funcionario_contato FROM funcionario_contato t"
-                + "	INNER JOIN funcionario f"
-                + "    INNER JOIN pessoa p"
-                + "    ON t.id_funcionario = f.codigo_funcionario"
-                + "    AND f.funcionario_id_pessoa = p.codigo_pessoa"
-                + "    AND t.id_contato_tipo = 1"
+        String sqlContato1 = "SELECT descricao_funcionario_contato FROM FUNCIONARIO_CONTATO t"
+                + "	INNER JOIN FUNCIONARIO f"
+                + "    INNER JOIN PESSOA p"
+                + "    ON t.id_funcionario = f.id_funcionario"
+                + "    AND f.funcionario_id_pessoa = p.id_pessoa"
+                + "    AND t.ID_CONTATO_FUNCIONARIO_TIPO = 1"
                 + "    WHERE p.cpf_pessoa = ?"
-                + "    OR f.codigo_funcionario = ?"
+                + "    OR f.ID_FUNCIONARIO = ?"
                 + "    OR p.nome_pessoa LIKE ?";
-        String sqlContato2 = "SELECT descricao_funcionario_contato FROM funcionario_contato t"
-                + "	INNER JOIN funcionario f"
-                + "    INNER JOIN pessoa p"
-                + "    ON t.id_funcionario = f.codigo_funcionario"
-                + "    AND f.funcionario_id_pessoa = p.codigo_pessoa"
-                + "    AND t.id_contato_tipo = 2"
+        String sqlContato2 = "SELECT descricao_funcionario_contato FROM FUNCIONARIO_CONTATO t"
+                + "	INNER JOIN FUNCIONARIO f"
+                + "    INNER JOIN PESSOA p"
+                + "    ON t.id_funcionario = f.id_funcionario"
+                + "    AND f.funcionario_id_pessoa = p.id_pessoa"
+                + "    AND f.funcionario_id_pessoa = p.id_pessoa"
+                + "    AND t.ID_CONTATO_FUNCIONARIO_TIPO = 2"
                 + "    WHERE p.cpf_pessoa = ?"
-                + "    OR f.codigo_funcionario = ?"
+                + "    OR f.ID_FUNCIONARIO = ?"
                 + "    OR p.nome_pessoa LIKE ?";
-        String sqlContato3 = "SELECT descricao_funcionario_contato FROM funcionario_contato t"
-                + "	INNER JOIN funcionario f"
-                + "    INNER JOIN pessoa p"
-                + "    ON t.id_funcionario = f.codigo_funcionario"
-                + "    AND f.funcionario_id_pessoa = p.codigo_pessoa"
-                + "    AND t.id_contato_tipo = 3"
+        String sqlContato3 = "SELECT descricao_funcionario_contato FROM FUNCIONARIO_CONTATO t"
+                + "	INNER JOIN FUNCIONARIO f"
+                + "    INNER JOIN PESSOA p"
+                + "    ON t.id_funcionario = f.id_funcionario"
+                + "    AND f.funcionario_id_pessoa = p.id_pessoa"
+                + "    AND t.ID_CONTATO_FUNCIONARIO_TIPO = 3"
                 + "    WHERE p.cpf_pessoa = ?"
-                + "    OR f.codigo_funcionario = ?"
+                + "    OR f.ID_FUNCIONARIO = ?"
                 + "    OR p.nome_pessoa LIKE ?";
-        String sqlEndereco = "SELECT * FROM funcionario_endereco e"
-                + "	INNER JOIN funcionario f"
-                + "    INNER JOIN pessoa p"
-                + "    ON f.funcionario_id_pessoa = p.codigo_pessoa"
-                + "    AND e.id_funcionario = f.codigo_funcionario"
+        String sqlEndereco = "SELECT * FROM ENDERECO_FUNCIONARIO e"
+                + "	INNER JOIN FUNCIONARIO f"
+                + "    INNER JOIN PESSOA p"
+                + "    ON f.funcionario_id_pessoa = p.id_pessoa"
+                + "    AND e.id_funcionario = f.id_funcionario"
                 + "    WHERE p.cpf_pessoa = ?"
-                + "    OR f.codigo_funcionario = ?"
+                + "    OR f.ID_FUNCIONARIO = ?"
                 + "    OR p.nome_pessoa LIKE ?";
 
         try {

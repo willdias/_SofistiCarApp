@@ -365,16 +365,16 @@ public class Cliente extends controller.ClienteCtrl{
     }
 
     public String getComboCidade(JComboBox<String> cbbCidade) {
-        return cbbCidade.getSelectedItem().toString();
+        return String.valueOf(cbbCidade.getSelectedItem());
     }
 
     public String getComboEstado(JComboBox<String> cbbEstado) {
-        return cbbEstado.getSelectedItem().toString();
+        return String.valueOf(cbbEstado.getSelectedItem());
     }
 
     public String getComboStatus(JComboBox<String> cbbStatus) {
     	if (cbbStatus.getSelectedItem() != null) {
-    		return cbbStatus.getSelectedItem().toString();
+    		return String.valueOf(cbbStatus.getSelectedItem());
     	}
     	else {
     		return "1";

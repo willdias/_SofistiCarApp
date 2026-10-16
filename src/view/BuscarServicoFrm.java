@@ -1,29 +1,24 @@
 package view;
 
 import conexoes.ConexoesMySql;
-import controller.ItemProdutoCtrl;
 import controller.ItemServicoCtrl;
 import controller.OrdemServicoCtrl;
 import dao.ItemServicoDao;
-import dao.ProdutoDao;
 import dao.ServicoDao;
-import java.awt.Image;
-import java.awt.Toolkit;
+import model.Itens_Servico;
+import model.Ordem_Servico;
+import net.proteanit.sql.DbUtils;
+
+import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import model.Itens_Produto;
-import model.Itens_Servico;
-import model.Ordem_Servico;
-import net.proteanit.sql.DbUtils;
+
 import static view.OrdemServicoFrm.atualizaValorOs;
-import static view.OrdemServicoFrm.tblProduto;
 import static view.OrdemServicoFrm.tblServico;
-import static view.BuscarProdutoFrm.iptCodigoProd;
 
 public class BuscarServicoFrm extends javax.swing.JDialog {
 
