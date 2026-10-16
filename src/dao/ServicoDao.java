@@ -23,8 +23,8 @@ public class ServicoDao {
 
 	public static Servico buscarServicoDao(Servico servico) throws SQLException {
 		try {
-			String sql = "SELECT codigo_servico as 'Código', descricao_servico as 'Descrição',"
-					+ " valor_venda_servico as 'Preço'" + " FROM servico" + " WHERE codigo_servico = ?";
+			String sql = "SELECT ID_SERVICO as 'Código', DESCRICAO_SERVICO as 'Descrição'"
+					+ " FROM SERVICO" + " WHERE ID_SERVICO = ?";
 
 			conexao = ConexoesMySql.base();
 			pst = conexao.prepareStatement(sql);
@@ -51,15 +51,15 @@ public class ServicoDao {
 		pst = null;
 		rs = null;
 
-		String sql = "INSERT INTO servico ( descricao_servico," + " valor_unitario, id_status_servico)"
-				+ " VALUES (?,?,?)";
+		String sql = "INSERT INTO SERVICO (descricao_servico)"
+				+ " VALUES (?)";
 		if (conexao != null) {
 			try {
 
 				pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 				pst.setString(1, servico.getDescricao_servico());
-				pst.setDouble(2, servico.getValor_unitario());
+				// pst.setDouble(2, servico.getValor_unitario());
 
 				int status = servico.getId_status_servico();
 				int sts = 0;
@@ -107,14 +107,15 @@ public class ServicoDao {
 		pst = null;
 		rs = null;
 
-		String sql = "INSERT INTO servico (tipo, descricao, aplicacao, valorCompra, valorVenda) VALUES (?,?,?,?,?)";
+		String sql = "UPDATE SERVICO SET descricao_servico = ? WHERE id_servico = ?";
 		if (conexao != null) {
 			try {
 
-				pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				pst.setString(2, servico.getDescricao_servico());
-				pst.setDouble(4, servico.getValor_unitario());
-				pst.setInt(7, servico.getId_status_servico());
+				pst = conexao.prepareStatement(sql);
+				pst.setString(1, servico.getDescricao_servico());
+				pst.setInt(2, servico.getCodigo_servico());
+				// pst.setDouble(4, servico.getValor_unitario());
+				// pst.setInt(7, servico.getId_status_servico());
 				pst.executeUpdate();
 				ResultSet keys = pst.getGeneratedKeys();
 				keys.next();
@@ -152,8 +153,8 @@ public class ServicoDao {
 
 	public ResultSet buscarTodosServicosDao(String descricao) throws SQLException {
 		try {
-			String sql = "SELECT codigo_servico AS 'Código', descricao_servico AS 'Descrição',"
-					+ " valor_unitario AS 'Preço R$'" + " FROM servico" + " WHERE descricao_servico LIKE ?";
+			String sql = "SELECT ID_SERVICO AS 'Código', DESCRICAO_SERVICO AS 'Descrição'"
+					+ " FROM SERVICO" + " WHERE DESCRICAO_SERVICO LIKE ?";
 
 			conexao = ConexoesMySql.base();
 			pst = conexao.prepareStatement(sql);
@@ -169,9 +170,10 @@ public class ServicoDao {
 
 	public ResultSet buscarItens(int os) throws SQLException {
 		try {
-			String sql = "SELECT codigo_servico AS 'Código',descricao AS 'Descrição',quantidade AS 'Quantidade',"
-					+ " preco_unit AS 'Preço Unit. R$', preco_total AS 'Preço Total R$'" + " FROM itens_servicos"
-					+ " WHERE codigo_os = ?";
+			String sql = "SELECT ID_ITEM_SERVICO AS 'Código', S.DESCRICAO_SERVICO AS 'Descrição'"
+					+ " FROM ITEM_SERVICO I"
+					+ " LEFT JOIN SERVICO S on S.ID_SERVICO = I.ID_SERVICO"
+					+ " WHERE I.ID_SERVICO = ?";
 			JOptionPane.showMessageDialog(null, os);
 			conexao = ConexoesMySql.base();
 			pst = conexao.prepareStatement(sql);
@@ -187,7 +189,7 @@ public class ServicoDao {
 
 	public ResultSet buscarValorTotalItens(Ordem_Servico os) throws SQLException {
 		try {
-			String sql = "SELECT SUM(valor_total)AS SOMA FROM itens_servicos" + "WHERE codigo_os = ?";
+			String sql = "SELECT SUM(VLR_TOTAL_ITEM_SERVICO)AS SOMA FROM ITEM_SERVICO" + " WHERE ID_SERVICO = ?";
 			conexao = ConexoesMySql.base();
 			pst = conexao.prepareStatement(sql);
 			pst.setInt(1, os.getCodigo_os());

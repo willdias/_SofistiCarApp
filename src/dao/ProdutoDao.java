@@ -27,12 +27,12 @@ public class ProdutoDao {
 
     public Produto buscarProduto(String descricao) throws SQLException {
         conexao = ConexoesMySql.base();
-        String sql = "SELECT produto.idProduto, produto.tipo, produto.descricao, produto.aplicacao,"
-                + " produto.valorCompra, produto.valorVenda"
-                + " FROM soberano.produto"
-                + " LEFT OUTER JOIN soberano.estoque"
-                + " ON produto.idProduto = estoque.idProduto"
-                + " WHERE produto.descricao LIKE ?";
+        String sql = "SELECT p.ID_PRODUTO, p.TIPO_PRODUTO, p.DESCRICAO_PRODUTO, p.APLICACAO_PRODUTO,"
+                + " p.VALOR_COMPRA_PRODUTO, p.VALOR_VENDA_PRODUTO"
+                + " FROM PRODUTO p"
+                //+ " LEFT OUTER JOIN ESTOQUE"
+                //+ " ON idProduto = estoque.idProduto"
+                + " WHERE p.DESCRICAO_PRODUTO LIKE ?";
         Produto produto = new Produto();
         try {
             pst = conexao.prepareStatement(sql);
@@ -42,11 +42,11 @@ public class ProdutoDao {
             while (rs.next()) {
 
                 // produto.setIdProduto(rs.getInt("Código"));
-                produto.setTipo_produto(rs.getString("Tipo"));
-                produto.setDescricao_produto(rs.getString("descricao"));
-                produto.setAplicacao_produto(rs.getString("aplicacao"));
-                produto.setValor_compra_produto(Double.parseDouble(rs.getString("valorCompra")));
-                produto.setValor_venda_produto(Double.parseDouble(rs.getString("valorVenda")));
+                produto.setTipo_produto(rs.getString("TIPO_PRODUTO"));
+                produto.setDescricao_produto(rs.getString("DESCRICAO_PRODUTO"));
+                produto.setAplicacao_produto(rs.getString("APLICACAO_PRODUTO"));
+                produto.setValor_compra_produto(Double.parseDouble(rs.getString("VALOR_COMPRA_PRODUTO")));
+                produto.setValor_venda_produto(Double.parseDouble(rs.getString("VALOR_VENDA_PRODUTO")));
             }
 
         } catch (Exception e) {
@@ -58,10 +58,10 @@ public class ProdutoDao {
 
     public static void buscarTodosProdutos(JTable tabelaProdutos) {
         try {
-            String sql = "SELECT p.codigo_produto as 'Código', p.tipo_produto as 'Tipo', p.descricao_produto as 'Descrição',"
-                    + " p.aplicacao_produto, p.valor_compra_produto,"
-                    + " p.valor_venda_produto as 'Preço'"
-                    + " FROM produto p";
+            String sql = "SELECT p.ID_PRODUTO as 'Código', p.TIPO_PRODUTO as 'Tipo', p.DESCRICAO_PRODUTO as 'Descrição',"
+                    + " p.APLICACAO_PRODUTO, p.VALOR_COMPRA_PRODUTO,"
+                    + " p.VALOR_VENDA_PRODUTO as 'Preço'"
+                    + " FROM PRODUTO p";
 
             pst = conexao.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -77,11 +77,11 @@ public class ProdutoDao {
 
     public static Produto buscarProdutoDao(Produto produto) {
         try {
-            String sql = "SELECT p.codigo_produto as 'Código', p.descricao_produto as 'Descrição',"
-                    + " p.tipo_produto as 'Tipo',"
-                    + "	p.aplicacao_produto, p.valor_compra_produto,"
-                    + " p.valor_venda_produto as 'Preço'"
-                    + " FROM produto p WHERE codigo_produto = ?";
+            String sql = "SELECT p.ID_PRODUTO as 'Código', p.DESCRICAO_PRODUTO as 'Descrição',"
+                    + " p.TIPO_PRODUTO as 'Tipo',"
+                    + "	p.APLICACAO_PRODUTO, p.VALOR_COMPRA_PRODUTO,"
+                    + " p.VALOR_VENDA_PRODUTO as 'Preço'"
+                    + " FROM PRODUTO p WHERE ID_PRODUTO = ?";
 
             conexao = ConexoesMySql.base();
             pst = conexao.prepareStatement(sql);
@@ -106,10 +106,9 @@ public class ProdutoDao {
         pst = null;
         rs = null;
 
-        String sql = "INSERT INTO produto ( tipo_produto, descricao_produto,"
-                + " aplicacao_produto, valor_compra_produto, valor_venda_produto, produto_id_fornecedor,"
-                + " id_status_produto, produto_marca)"
-                + " VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO PRODUTO ( tipo_produto, descricao_produto,"
+                + " aplicacao_produto, valor_compra_produto, valor_venda_produto, produto_id_fornecedor )"
+                + " VALUES (?,?,?,?,?,?)";
         if (conexao != null) {
             try {
 
@@ -145,8 +144,8 @@ public class ProdutoDao {
         pst = null;
         rs = null;
 
-        String sql = "UPDATE produto tipo = ?, descricao = ?, aplicacao = ?, valorCompra = ?, valorVenda = ?"
-                + " WHERE codigo_produto = ? ";
+        String sql = "UPDATE PRODUTO SET tipo_produto = ?, descricao_produto = ?, aplicacao_produto = ?, valor_compra_produto = ?, valor_venda_produto = ?"
+                + " WHERE id_produto = ? ";
         
         if (conexao != null) {
             try {
@@ -179,10 +178,10 @@ public class ProdutoDao {
         conexao = ConexoesMySql.base();
 
         try {
-            String sql = "SELECT p.codigo_produto AS 'Código', p.descricao_produto AS 'Descrição',"
-                    + " p.valor_venda_produto AS 'Preço R$'"
-                    + " FROM produto p"
-                    + " WHERE descricao_produto LIKE ?";
+            String sql = "SELECT p.ID_PRODUTO AS 'Código', p.DESCRICAO_PRODUTO AS 'Descrição',"
+                    + " p.VALOR_VENDA_PRODUTO AS 'Preço R$'"
+                    + " FROM PRODUTO p"
+                    + " WHERE DESCRICAO_PRODUTO LIKE ?";
 
             conexao = ConexoesMySql.base();
             pst = conexao.prepareStatement(sql);
@@ -206,17 +205,17 @@ public class ProdutoDao {
         List<Produto> produtos = new ArrayList<>();
 
         try {
-            pst = conexao.prepareStatement("SELECT * FROM produto");
+            pst = conexao.prepareStatement("SELECT * FROM PRODUTO");
             rs = pst.executeQuery();
 
             while (rs.next()) {
 
                 Produto produto = new Produto();
 
-                produto.setCodigo_produto(rs.getInt("codigo_produto"));
-                produto.setTipo_produto(rs.getString("tipo_produto"));
-                produto.setDescricao_produto(rs.getString("descricao_produto"));
-                produto.setAplicacao_produto(rs.getString("aplicacao_produto"));
+                produto.setCodigo_produto(rs.getInt("ID_PRODUTO"));
+                produto.setTipo_produto(rs.getString("TIPO_PRODUTO"));
+                produto.setDescricao_produto(rs.getString("DESCRICAO_PRODUTO"));
+                produto.setAplicacao_produto(rs.getString("APLICACAO_PRODUTO"));
                 produto.setValor_compra_produto(rs.getDouble("valor_compra_produto"));
                 produto.setValor_venda_produto(rs.getDouble("valor_venda_produto"));
                 produto.setProduto_marca(rs.getString("produto_marca"));

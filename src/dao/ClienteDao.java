@@ -1,6 +1,7 @@
 package dao;
 
 import conexoes.ConexoesMySql;
+
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -230,21 +231,22 @@ public class ClienteDao {
         pst3 = null;
         pst4 = null;
 
-        String sqlCpf = "SELECT * FROM pessoa p" + " INNER JOIN cliente c ON p.codigo_pessoa = c.id_pessoa"
-                + " INNER JOIN cliente_contato t ON t.id_cliente = c.codigo_cliente" + " WHERE p.cpf_pessoa = ?"
-                + " OR c.codigo_cliente = ?" + " OR p.nome_pessoa LIKE ?" + " OR p.cnpj_pessoa = ?"
+        String sqlCpf = "SELECT * FROM PESSOA p"
+                + " INNER JOIN CLIENTE c ON p.ID_PESSOA = c.id_pessoa"
+                + " INNER JOIN CLIENTE_CONTATO t ON t.id_cliente = c.ID_CLIENTE" + " WHERE p.cpf_pessoa = ?"
+                + " OR c.ID_CLIENTE = ?" + " OR p.nome_pessoa LIKE ?" + " OR p.cnpj_pessoa = ?"
                 + " OR p.razaosocial_pessoa LIKE ?";
-        String sqlContato2 = "SELECT descricao_cliente_contato FROM cliente_contato t" + " INNER JOIN cliente c"
-                + " INNER JOIN pessoa p" + " ON t.id_cliente = c.codigo_cliente" + " AND c.id_pessoa = p.codigo_pessoa"
-                + " AND t.id_contato_tipo = 2" + " WHERE p.cpf_pessoa = ? " + " OR c.codigo_cliente = ?"
+        String sqlContato2 = "SELECT descricao_cliente_contato FROM CLIENTE_CONTATO t" + " INNER JOIN CLIENTE c"
+                + " INNER JOIN PESSOA p" + " ON t.id_cliente = c.ID_CLIENTE" + " AND c.id_pessoa = p.ID_PESSOA"
+                + " AND t.id_contato_tipo = 2" + " WHERE p.cpf_pessoa = ? " + " OR c.ID_CLIENTE = ?"
                 + " OR p.nome_pessoa LIKE ?" + " OR p.cnpj_pessoa = ?" + " OR p.razaosocial_pessoa LIKE ?";
-        String sqlContato3 = "SELECT descricao_cliente_contato FROM cliente_contato t" + " INNER JOIN cliente c"
-                + " INNER JOIN pessoa p" + " ON t.id_cliente = c.codigo_cliente" + " AND c.id_pessoa = p.codigo_pessoa"
-                + " AND t.id_contato_tipo = 3" + " WHERE p.cpf_pessoa = ? " + " OR c.codigo_cliente = ?"
+        String sqlContato3 = "SELECT descricao_cliente_contato FROM CLIENTE_CONTATO t" + " INNER JOIN CLIENTE c"
+                + " INNER JOIN PESSOA p" + " ON t.id_cliente = c.ID_CLIENTE" + " AND c.id_pessoa = p.ID_PESSOA"
+                + " AND t.id_contato_tipo = 3" + " WHERE p.cpf_pessoa = ? " + " OR c.ID_CLIENTE = ?"
                 + " OR p.nome_pessoa LIKE ?" + " OR p.cnpj_pessoa = ?" + " OR p.razaosocial_pessoa LIKE ?";
-        String sqlEndereco = "SELECT * FROM cliente_endereco e" + " INNER JOIN cliente c" + " INNER JOIN pessoa p"
-                + " ON c.id_pessoa = p.codigo_pessoa" + " AND e.id_cliente = c.codigo_cliente"
-                + " WHERE p.cpf_pessoa = ? " + " OR c.codigo_cliente = ?" + " OR p.nome_pessoa LIKE ?"
+        String sqlEndereco = "SELECT * FROM ENDERECO_CLIENTE e" + " INNER JOIN CLIENTE c" + " INNER JOIN PESSOA p"
+                + " ON c.id_pessoa = p.ID_PESSOA" + " AND e.id_cliente = c.ID_CLIENTE"
+                + " WHERE p.cpf_pessoa = ? " + " OR c.ID_CLIENTE = ?" + " OR p.nome_pessoa LIKE ?"
                 + " OR p.cnpj_pessoa = ?" + " OR p.razaosocial_pessoa LIKE ?";
 
         try {
@@ -485,7 +487,7 @@ public class ClienteDao {
                 + " ON (t.id_cliente = c.id_cliente AND c.id_pessoa = p.id_pessoa AND t.id_contato_tipo = 3)"
                 + " WHERE c.ID_cliente = ?";
         String sqlEndereco = "SELECT * "
-                + " FROM CLIENTE_ENDERECO e"
+                + " FROM ENDERECO_CLIENTE e"
                 + " INNER JOIN CLIENTE c"
                 + " INNER JOIN PESSOA p"
                 + " ON c.id_pessoa = p.ID_pessoa" + " AND e.id_cliente = c.ID_cliente"
@@ -564,7 +566,7 @@ public class ClienteDao {
         pst5 = null;
         rs = null;
 
-        System.out.println("Cliente: " + cliente.getCodigo() + " , IdCliente: "+ cliente.getIdCliente());
+        System.out.println("Cliente: " + cliente.getCodigo() + " , IdCliente: " + cliente.getIdCliente());
 
         String sqlPessoa = "UPDATE PESSOA p "
                 + " SET p.nome_pessoa = ?, p.rg_pessoa = ?, "
@@ -682,10 +684,12 @@ public class ClienteDao {
     public ResultSet buscarClienteVeiDao() throws SQLException {
         conexao = ConexoesMySql.base();
         DefaultComboBoxModel cliente = null;
-        String sql1 = "SELECT c.codigo_cliente,\n" + "	CASE WHEN p.nome_pessoa IS NOT NULL\n"
-                + "    THEN p.nome_pessoa\n" + "    ELSE p.razaosocial_pessoa END AS nome FROM pessoa p\n"
-                + "    INNER JOIN cliente c\n" + "    ON c.id_pessoa = p.codigo_pessoa\n"
-                + "    AND c.codigo_cliente IS NOT null";
+        String sql1 = "SELECT c.ID_CLIENTE,\n"
+                + "	CASE WHEN p.nome_pessoa IS NOT NULL\n"
+                + " THEN p.nome_pessoa\n"
+                + " ELSE p.razaosocial_pessoa END AS nome "
+                + " FROM CLIENTE c "
+                + " LEFT JOIN PESSOA p ON c.id_pessoa = p.ID_PESSOA";
 
         try {
 

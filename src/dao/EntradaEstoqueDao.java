@@ -1,14 +1,12 @@
 package dao;
 
 import conexoes.ConexoesMySql;
-import java.awt.HeadlessException;
+import model.EntradaProduto;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
-
-import model.EntradaProduto;
 
 public class EntradaEstoqueDao {
 
@@ -18,16 +16,15 @@ public class EntradaEstoqueDao {
 
     public static boolean updateSaldo(EntradaProduto entrada) throws SQLException {
         conexao = ConexoesMySql.base();
-        //Connection conexao = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String sql = "UPDATE estoque (saldoProduto)SET VALUES (?)";
+        /*String sql = "UPDATE ESTOQUE SET saldoProduto = ? WHERE id = ?";
 
         if (conexao != null) {
             try {
 
-                pst = conexao.prepareStatement(sql);
+                pst = conexao.prepareStatement("sql");
 
                 pst.setString(1, entrada.getQuantidade());
                 pst.executeUpdate();
@@ -53,7 +50,7 @@ public class EntradaEstoqueDao {
                     System.out.println("Ocorreu uma exceção SQL");
                 }
             }
-        }
+        }*/
         conexao.close();
         return false;
     }
